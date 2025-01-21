@@ -4,15 +4,14 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.particle.SimpleParticleType;
 import org.jetbrains.annotations.Nullable;
 
 public class OrbParticle extends SpriteBillboardParticle {
 
     private final SpriteProvider spriteProvider;
 
-    protected OrbParticle(ClientWorld clientWorld, double x, double y, double z,
-                          SpriteProvider spriteProvider, double xd, double yd, double zd) {
+    protected OrbParticle(ClientWorld clientWorld, double x, double y, double z, SpriteProvider spriteProvider, double xd, double yd, double zd) {
         super(clientWorld, x, y, z, xd, yd, zd);
         this.scale *= 1.75f;
         this.maxAge = 4;
@@ -51,13 +50,13 @@ public class OrbParticle extends SpriteBillboardParticle {
         return ParticleTextureSheet.PARTICLE_SHEET_TRANSLUCENT;
     }
 
-    @Override
+    // @Override
     protected int getBrightness(float tint) {
         return 240;
     }
 
     @Environment(EnvType.CLIENT)
-    public static class Factory implements ParticleFactory<DefaultParticleType> {
+    public static class Factory implements ParticleFactory<SimpleParticleType> {
 
         private final SpriteProvider spriteProvider;
 
@@ -67,7 +66,7 @@ public class OrbParticle extends SpriteBillboardParticle {
 
         @Nullable
         @Override
-        public Particle createParticle(DefaultParticleType parameters, ClientWorld world, double x, double y, double z, double dx, double dy, double dz) {
+        public Particle createParticle(SimpleParticleType parameters, ClientWorld world, double x, double y, double z, double dx, double dy, double dz) {
             return new OrbParticle(world, x, y, z, this.spriteProvider, dx, dy, dz);
         }
     }
